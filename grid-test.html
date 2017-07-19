@@ -1,0 +1,58 @@
+<html>
+    <head>
+        <title>Grid Click Counter</title>
+        <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.1/jquery.mobile-1.4.1.min.css" />
+        <style>
+            .tile {
+                font-size: 24pt;
+                background: rgb(255,140,0);
+                text-align: center;
+                border: 2px solid black;
+            }
+
+        </style>
+        <script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+        <script src="http://code.jquery.com/mobile/1.4.1/jquery.mobile-1.4.1.min.js"></script>
+        <script>
+            var n = 4;
+
+            function buildGrid(rows) {
+                for (var i = 0; i < rows; i++) {
+                    $("#grid").append(
+                        "<div class=\"ui-block-a tile\"><a data-role=\"button\">0</a></div><div class=\"ui-block-b tile\"><a data-role=\"button\">0</a></div><div class=\"ui-block-c tile\"><a data-role=\"button\">0</a></div>");
+                }
+            }
+
+            function incrementCounter(elem) {
+                oldvalue = parseInt(elem.innerHTML);
+                newvalue = oldvalue + 1;
+                elem.innerHTML = newvalue;
+            }
+
+            $(document).ready( function() {
+                buildGrid(n);
+
+                $(".tile").on('touchend', function(e) {
+                    incrementCounter(e.target);
+                });
+
+                var height = $(window).height() - 20;
+                var rowheight = height / n;
+                $(".tile").height(rowheight);
+                $("a").css("line-height", rowheight + "px");
+            });
+
+            function resetCounter(elem) {
+                elem.innerHTML = 0;
+            }
+        </script>
+    </head>
+    <body>
+        <div data-role="page" id="home">
+            <div data-role="content">
+                <div id="grid" class="ui-grid-b">
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
